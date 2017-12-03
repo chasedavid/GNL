@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/03 10:17:33 by envy-15          ###   ########.fr       */
+/*   Updated: 2017/12/03 11:29:47 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,27 @@ int					get_next_line(const int fd, char **line)
 //function call in case you have leftovers
 	if (buffer->leftover)
 	{
-		if ((tmp = ft_strchar(buffer->leftover, '\n')) != NULL)
+		if ((tmp = ft_strchr(buffer->leftover, '\n')) != NULL)
 		{
-			*line = ft_strsub(buffer->leftover, 0, ft_strchr(buffer->leftover, '\n'));
-			buffer->leftover = tmp + 1;
+			*line = ft_strsub(buffer->leftover, 0, tmp - buffer->leftover);
+			buffer->leftover = tmp + 1;//beginning of leftover not freed - mem leak?
+			return (1);
 		}
 		else
 		{
 			*line = ft_strsub(buffer->leftover, 0, ft_strlen(buffer->leftover));
-			buffer->leftover = 0;
+			buffer->leftover[0] = '\0';//beware of possible leaks -God
 		}
 	}
 //function call do do if you don't need to use leftovers
 	while((ret = read(fd, buffer->content, BUF_SIZE)))
 	{
-		while ((tmp = ft_strchar(buffer->content, '\n')) == NULL)
+		if ((tmp = ft_strchr(buffer->content, '\n')) == NULL)
 			*line = ft_strxjoin(*line, buffer->content, 1);
+		else
+			break ;
 	}
-	*line = ft_strxjoin(*line, ft_strsub(buffer->content, 0, tmp - &(buffer->content)), 3);
+	*line = ft_strxjoin(*line, ft_strsub(buffer->content, 0, tmp - (buffer->content)), 3);
 		 
 	buffer->leftover = tmp + 1;
 //check return value to see see if done or if we need to read again 
