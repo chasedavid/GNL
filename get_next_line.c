@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/01 08:55:28 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/03 10:17:33 by envy-15          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int					get_next_line(const int fd, char **line)
 		 
 	buffer->leftover = tmp + 1;
 //check return value to see see if done or if we need to read again 
+	if (ret < BUF_SIZE && !ft_strlen(buffer->leftover))
+		return (0);
+
 	return (1);
-	
-	return (0);	
+
 }
