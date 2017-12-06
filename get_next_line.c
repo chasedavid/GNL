@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/03 11:29:47 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/06 01:01:14 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ t_line				*ft_new_fd(int fd)
 {
 	t_line			*new;
 
-	if (!(new = ft_memalloc(sizeof(t_line))))
+	if (!(new = (t_line *)ft_memalloc(sizeof(t_line))))
 		return (NULL);
 	new->fd = fd;
-	new->content = ft_memalloc(BUF_SIZE + 1);
-	new->leftover = ft_memalloc(BUF_SIZE + 1);
+	new->leftover = (char *)ft_memalloc(BUF_SIZE + 1);
 	new->next = NULL;
 	return (new);
 }
@@ -39,47 +38,47 @@ t_line				*ft_find_fd(int fd, t_line *head)
 	return (current);
 }
 
+int					leftover_management(t_line *buf, char *tmp, char **line)
+{
+	if ((tmp = ft_strchr(buf->leftover, '\n')) != NULL)
+	{
+		*line = ft_strsub(buf->leftover, 0, tmp - buf->leftover);
+		buf->leftover = ft_strcpy(buf->leftover, tmp + 1);
+		return (1);
+	}
+	else
+		*line = ft_strcpy(*line, buf->leftover); //ISSUE IS WITH THIS!!!!!
+	ft_strclr(buf->leftover);
+	return (0);
+} 
+
 int					get_next_line(const int fd, char **line)
 {
 	static t_line	*head;
-	t_line			*buffer;
+	t_line			*buf;
+	char			str[BUF_SIZE + 1];
 	int				ret;
 	char			*tmp;
 
-	if (fd < 0 || !(*line)) 
+	tmp = NULL;
+	if (!(head))	
+		head = ft_new_fd(fd);
+	if (fd < 0) 
 		return (-1);
-	*line = NULL;
-	buffer = ft_find_fd(fd, head);
-//function call in case you have leftovers
-	if (buffer->leftover)
-	{
-		if ((tmp = ft_strchr(buffer->leftover, '\n')) != NULL)
-		{
-			*line = ft_strsub(buffer->leftover, 0, tmp - buffer->leftover);
-			buffer->leftover = tmp + 1;//beginning of leftover not freed - mem leak?
+	str[BUF_SIZE] = '\0';
+	buf = ft_find_fd(fd, head);
+	if (buf->leftover[0])
+		if (leftover_management(buf, tmp, line) == 1)
 			return (1);
-		}
-		else
-		{
-			*line = ft_strsub(buffer->leftover, 0, ft_strlen(buffer->leftover));
-			buffer->leftover[0] = '\0';//beware of possible leaks -God
-		}
-	}
-//function call do do if you don't need to use leftovers
-	while((ret = read(fd, buffer->content, BUF_SIZE)))
+	while((ret = read(fd, str, BUF_SIZE)))
 	{
-		if ((tmp = ft_strchr(buffer->content, '\n')) == NULL)
-			*line = ft_strxjoin(*line, buffer->content, 1);
+		if ((tmp = ft_strchr(str, '\n')) == NULL)
+			*line = ft_strxjoin(*line, str, 0);
 		else
 			break ;
 	}
-	*line = ft_strxjoin(*line, ft_strsub(buffer->content, 0, tmp - (buffer->content)), 3);
-		 
-	buffer->leftover = tmp + 1;
-//check return value to see see if done or if we need to read again 
-	if (ret < BUF_SIZE && !ft_strlen(buffer->leftover))
-		return (0);
-
-	return (1);
-
+	if (ret == BUF_SIZE)
+		*line = ft_strxjoin(*line, ft_strsub(str, 0, tmp - (str)),0);
+	buf->leftover = ft_strcpy(buf->leftover, tmp + 1);
+	return ((ret) ? 1 : 0);
 }

@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 08:52:42 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/11/30 15:42:36 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/05 18:20:40 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct		s_line
 {
 	int				fd;
-	char			*content;
 	char			*leftover;
 	struct s_line	*next;	
 }					t_line;

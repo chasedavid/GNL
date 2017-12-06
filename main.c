@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 02:31:28 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/11/29 02:32:35 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/05 17:15:46 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ int	main(void)
 	char	*str;
 	int		fd;
 	int		result;
+//	int		i = -1;
 
 	if ((fd = open("tests/file.txt", O_RDONLY)) < 0)
 		return (0);
-	while ((result = get_next_line(fd, &str)) != 0)
+//	while (++i < 15)
+	while ((result = get_next_line(fd, &str)))
 	{
+//		result = get_next_line(fd, &str);
 		printf("%s\n", str);
-		free(str);
 	}
 	close(fd);
 	return (0);

@@ -6,17 +6,35 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:09:23 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/11/30 14:45:58 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/06 00:08:29 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strxjoin(char const *s1, char const *s2, size_t x)
+static void		free_something(char *s1, char *s2, size_t x)
+{
+	if (x == 1)
+		if (s1)
+			free(s1);
+	if (x == 2)
+		if (s2)
+			free(s2);
+	if (x == 3)
+	{
+		if (s1)
+			free(s1);
+		if (s2)
+			free(s2);
+	}
+}
+
+char		*ft_strxjoin(char *s1, char *s2, size_t x)
 {
 	char *mem;
 	size_t size;
 
+	mem = NULL;
 	if (s1 && s2)
 	{
 		size = ft_strlen(s1) + ft_strlen(s2);
@@ -27,15 +45,7 @@ char		*ft_strxjoin(char const *s1, char const *s2, size_t x)
 			ft_strcpy(mem, (char *)s1);
 			ft_strcat(mem, s2);
 		}
-		if (x = 1)
-			free(s1);
-		if (x = 2)
-			free(s2);
-		if (x = 3)
-		{
-			free(s1);
-			free(s2);
-		}
+		free_something(s1, s2, x);
 		return (mem);
 	}
 	return (NULL);

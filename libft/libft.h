@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 18:48:02 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/11/14 11:17:05 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/04 11:24:08 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				ft_strequ(char const *s1, char const *s2);
 int				ft_strnequ(char const *s1, char const *s2, size_t n);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strxjoin(char const *s1, char const *s2, size_t x);
+char			*ft_strxjoin(char *s1, char *s2, size_t x);
 char			*ft_strtrim(char const *s);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_itoa(int n);
@@ -85,5 +85,7 @@ t_list			*ft_lstmap(t_list *lst, t_list *(f)(t_list *elem));
 void			*ft_strrev(char *s);
 long double		ft_power(float base, int exp);
 int				ft_gcf(unsigned int a, unsigned int b);
+int				ft_lcm(unsigned int a, unsigned int b);
+int				ft_num_placevalues(int n);
 
 #endif
