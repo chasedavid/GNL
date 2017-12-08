@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/06 01:01:14 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/07 19:52:10 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int					leftover_management(t_line *buf, char *tmp, char **line)
 		return (1);
 	}
 	else
-		*line = ft_strcpy(*line, buf->leftover); //ISSUE IS WITH THIS!!!!!
+		*line = ft_strcpy(*line, buf->leftover);
 	ft_strclr(buf->leftover);
 	return (0);
 } 
@@ -72,13 +72,12 @@ int					get_next_line(const int fd, char **line)
 			return (1);
 	while((ret = read(fd, str, BUF_SIZE)))
 	{
-		if ((tmp = ft_strchr(str, '\n')) == NULL)
+		if ((tmp = ft_strchr(str, '\n')) == NULL || (tmp = ft_strchr(str, EOF)) == NULL)
 			*line = ft_strxjoin(*line, str, 0);
 		else
 			break ;
 	}
-	if (ret == BUF_SIZE)
-		*line = ft_strxjoin(*line, ft_strsub(str, 0, tmp - (str)),0);
+		*line = ft_strxjoin(*line, ft_strsub(str, 0, tmp - (str)), 3);
 	buf->leftover = ft_strcpy(buf->leftover, tmp + 1);
 	return ((ret) ? 1 : 0);
 }
