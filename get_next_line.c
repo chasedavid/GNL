@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/07 19:52:10 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/08 15:05:36 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,10 @@ int					get_next_line(const int fd, char **line)
 		if (leftover_management(buf, tmp, line) == 1)
 			return (1);
 	while((ret = read(fd, str, BUF_SIZE)))
-	{
-		if ((tmp = ft_strchr(str, '\n')) == NULL || (tmp = ft_strchr(str, EOF)) == NULL)
+		if ((tmp = ft_strchr(str, '\n')) == NULL)
 			*line = ft_strxjoin(*line, str, 0);
 		else
 			break ;
-	}
 		*line = ft_strxjoin(*line, ft_strsub(str, 0, tmp - (str)), 3);
 	buf->leftover = ft_strcpy(buf->leftover, tmp + 1);
 	return ((ret) ? 1 : 0);
