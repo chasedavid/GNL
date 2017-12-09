@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:09:23 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/06 00:08:29 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/09 12:49:58 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 
 static void		free_something(char *s1, char *s2, size_t x)
 {
-	if (x == 1)
-		if (s1)
-			free(s1);
-	if (x == 2)
-		if (s2)
-			free(s2);
-	if (x == 3)
+	if (x == 1 || x == 3)
 	{
-		if (s1)
-			free(s1);
-		if (s2)
-			free(s2);
+		free(s1);
+		s1 = NULL;
+	}
+	if (x == 2 || x = 3)
+	{	
+		free(s2);
+		s2 = NULL;
 	}
 }
 
