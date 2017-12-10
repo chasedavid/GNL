@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 08:52:42 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/05 18:20:40 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/09 18:51:08 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define BUF_SIZE 32 
+# define BUFF_SIZE 100000 
 
 typedef struct		s_line
 {
