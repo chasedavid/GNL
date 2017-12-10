@@ -6,7 +6,7 @@
 #    By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/27 09:43:45 by cfarnswo          #+#    #+#              #
-#    Updated: 2017/12/07 22:08:28 by envy-15          ###   ########.fr        #
+#    Updated: 2017/12/09 00:44:53 by cfarnswo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ LIBFT	= ./libft/
 FILES 	= main.c get_next_line.c
 OBJ	= $(FILES:.c=.o)
 CC	= gcc
-CFLAGS	= -Wall -Wextra -Werror -g
-
+CFLAGS	= -Wall -Wextra -Werror -g 
 
 .PHONY = all clean fclean re
 
