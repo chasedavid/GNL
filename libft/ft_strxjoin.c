@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:09:23 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/09 19:16:27 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/11 18:27:46 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ char			*ft_strxjoin(char *s1, char *s2, size_t x)
 		size = ft_strlen(s1) + ft_strlen(s2);
 		if (!(mem = (char *)malloc((size + 1) * (sizeof(char)))))
 			return (NULL);
-		if (mem)
-		{
-			ft_strcpy(mem, (char *)s1);
-			ft_strcat(mem, s2);
-		}
+		ft_strcpy(mem, (char *)s1);
+		ft_strcat(mem, s2);
 		free_something(s1, s2, x);
 		return (mem);
 	}

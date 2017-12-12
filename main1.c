@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 02:31:28 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/09 21:47:01 by envy-15          ###   ########.fr       */
+/*   Updated: 2017/12/11 17:43:55 by cfarnswo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ int	main(void)
 	if ((fd = open("tests/file.txt", O_RDONLY)) < 0)
 		return (0);
 
-	while ((result = get_next_line(fd, &str)))
+/*	while ((result = get_next_line(fd, &str)))
 	{
 		printf("%s\n", str);
 	}
-	if ((fd1 = open("tests/file1.txt", O_RDONLY)) < 0)
-		return (0);	close(fd);
-	while ((result = get_next_line(fd, &str)))
+	close(fd);*/
+	if ((fd1 = open("tests/file2.txt", O_RDONLY)) < 0)
+		return (0);
+	while ((result = get_next_line(fd1, &str)))
 		printf("%s\n", str);
 	close(fd1); 
 	return (0);
