@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/13 11:27:50 by envy-15          ###   ########.fr       */
+/*   Updated: 2017/12/13 19:18:46 by envy-15          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ int					leftover_management(t_line *buf, char *tmp, char **line)
 	ft_strclr(buf->leftover);
 	return (0);
 }
-/*
-int					line_management(char **line, char *buffer, int ret, tmp)
+
+void					save_lines(int *ret, char **tmp, const int *fd, char **line)
 {
-	
-}*/
+	(*ret) = (((*fd) < 0 || line == NULL) ? -1 : 0);
+	(*tmp) = NULL;
+}	
 
 int					get_next_line(const int fd, char **line)
 {
@@ -71,9 +72,10 @@ int					get_next_line(const int fd, char **line)
 	int				ret;
 	char			*tmp;
 
-	ret = ((fd < 0 || line == NULL) ? -1 : 0);
+	save_lines(&ret, &tmp, &fd, line);
+//	ret = ((fd < 0 || line == NULL) ? -1 : 0);
 	*line = ft_strnew(BUFF_SIZE);
-	tmp = NULL;
+//	tmp = NULL;
 	buf = ft_find_fd(fd, &head);
 	if (buf->leftover[0] && (leftover_management(buf, tmp, line) == 1))
 		return (1);
