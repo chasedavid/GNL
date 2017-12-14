@@ -6,7 +6,7 @@
 /*   By: cfarnswo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 11:22:24 by cfarnswo          #+#    #+#             */
-/*   Updated: 2017/12/12 00:59:17 by cfarnswo         ###   ########.fr       */
+/*   Updated: 2017/12/13 11:27:50 by envy-15          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,17 @@ int					get_next_line(const int fd, char **line)
 	int				ret;
 	char			*tmp;
 
-	if (fd < 0 || line == NULL)
-		return (-1);
+	ret = ((fd < 0 || line == NULL) ? -1 : 0);
 	*line = ft_strnew(BUFF_SIZE);
 	tmp = NULL;
 	buf = ft_find_fd(fd, &head);
-	ft_bzero(buffer, BUFF_SIZE + 1);
 	if (buf->leftover[0] && (leftover_management(buf, tmp, line) == 1))
 		return (1);
-	while ((ret = read(fd, buffer, BUFF_SIZE)) > 0 )
+	while (!tmp && (ret = read(fd, buffer, BUFF_SIZE)) > 0 && ret >= 0)
 	{
-		if (ret < BUFF_SIZE)
-			buffer[ret] = '\0';
+		buffer[ret] = '\0';
 		if ((tmp = ft_strchr(buffer, '\n')) == NULL)
 			*line = ft_strxjoin(*line, buffer, 1);
-		else
-			break ;
 	}
 	if (ret < 0)
 		return (ret);
